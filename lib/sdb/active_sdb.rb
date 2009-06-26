@@ -686,7 +686,7 @@ module RightAws
       #
       def []=(attribute, values)
         attribute = attribute.to_s
-        @attributes[attribute] = attribute == 'id' ? values.to_s : values.to_a.uniq
+        @attributes[attribute] = attribute == 'id' ? values.to_s : [values].flatten.uniq
       end
 
       # Reload attributes from SDB. Replaces in-memory attributes.
