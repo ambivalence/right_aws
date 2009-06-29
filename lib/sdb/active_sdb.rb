@@ -920,7 +920,7 @@ module RightAws
         attrs = {}
         attributes.each do |attribute, values|
           attribute = attribute.to_s
-          attrs[attribute] = attribute == 'id' ? values.to_s : values.to_a.uniq
+          attrs[attribute] = attribute == 'id' ? values.to_s : [values].flatten.uniq
           attrs.delete(attribute) if values.blank?
         end
         attrs
