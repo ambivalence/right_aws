@@ -233,7 +233,7 @@ module RightAws
     def receive_message(queue_url, max_number_of_messages=1, visibility_timeout=nil)
       return [] if max_number_of_messages == 0
       req_hash = generate_post_request('ReceiveMessage', 'MaxNumberOfMessages'  => max_number_of_messages, 'VisibilityTimeout' => visibility_timeout,
-                                       :queue_url          => queue_url )
+                                       :queue_url          => queue_url, 'AttributeName' => 'All' )
       request_info(req_hash, SqsReceiveMessageParser.new(:logger => @logger))
     rescue
       on_exception
