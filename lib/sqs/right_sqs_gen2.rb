@@ -171,7 +171,8 @@ module RightAws
         list = @sqs.interface.receive_message(@url, number_of_messages, visibility)
         list.map! do |entry|
           msg = Message.new(self, entry['MessageId'], entry['ReceiptHandle'],
-                            entry['Body'], visibility)
+                            entry['Body'], visibility, entry['SentTimestamp'], 
+                            entry['ApproximateReceiveCount'], entry['ApproximateFirstReceiveTimestamp'])
           msg.received_at = Time.now 
           msg.receive_checksum = entry['MD5OfBody']
           msg
@@ -198,7 +199,8 @@ module RightAws
         return nil if list.empty?
         entry = list[0]
         msg = Message.new(self, entry['MessageId'], entry['ReceiptHandle'],
-                            entry['Body'], visibility)
+                          entry['Body'], visibility, entry['SentTimestamp'], 
+                          entry['ApproximateReceiveCount'], entry['ApproximateFirstReceiveTimestamp'])
         msg.received_at = Time.now 
         msg.receive_checksum = entry['MD5OfBody']
         msg
@@ -253,19 +255,21 @@ module RightAws
     end
         
     class Message
-      attr_reader   :queue, :id, :body, :visibility, :receipt_handle
+      attr_reader   :queue, :id, :body, :visibility, :receipt_handle, :approximate_receive_count, :approximate_first_receive_timestamp
       attr_accessor :sent_at, :received_at, :send_checksum, :receive_checksum
       
-      def initialize(queue, id=nil, rh = nil, body=nil, visibility=nil)
+      def initialize(queue, id=nil, rh = nil, body=nil, visibility=nil, sent_at = nil, approximate_receive_count = nil, approximate_first_receive_timestamp = nil)
         @queue       = queue
         @id          = id
         @receipt_handle = rh 
         @body        = body
         @visibility  = visibility
-        @sent_at     = nil
+        @sent_at     = sent_at
         @received_at = nil
         @send_checksum = nil
         @receive_checksum = nil
+        @approximate_receive_count = approximate_receive_count
+        @approximate_first_receive_timestamp = approximate_first_receive_timestamp
       end
       
         # Returns +Message+ instance body.
