@@ -264,12 +264,12 @@ module RightAws
         @receipt_handle = rh 
         @body        = body
         @visibility  = visibility
-        @sent_at     = sent_at
+        @sent_at     = Time.at(sent_at.to_i / 1000.0) if sent_at
         @received_at = nil
         @send_checksum = nil
         @receive_checksum = nil
-        @approximate_receive_count = approximate_receive_count
-        @approximate_first_receive_timestamp = approximate_first_receive_timestamp
+        @approximate_receive_count = approximate_receive_count.to_i if approximate_receive_count
+        @approximate_first_receive_timestamp = Time.at(approximate_first_receive_timestamp.to_i / 1000.0) if approximate_first_receive_timestamp
       end
       
         # Returns +Message+ instance body.

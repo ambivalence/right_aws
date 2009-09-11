@@ -25,7 +25,7 @@ module RightAws
 
   #
   # Right::Aws::SqsGen2Interface - RightScale's low-level Amazon SQS interface
-  # for API version 2008-01-01 and later.
+  # for API version 2009-02-01 and later.
   # For explanations of the semantics
   # of each call, please refer to Amazon's documentation at
   # http://developer.amazonwebservices.com/connect/kbcategory.jspa?categoryID=31
@@ -38,7 +38,7 @@ module RightAws
   class SqsGen2Interface < RightAwsBase
     include RightAwsBaseInterface
     
-    API_VERSION       = "2008-01-01"
+    API_VERSION       = "2009-02-01"
     DEFAULT_HOST      = "queue.amazonaws.com"
     DEFAULT_PORT      = 443
     DEFAULT_PROTOCOL  = 'https'
@@ -423,6 +423,8 @@ module RightAws
           when 'ReceiptHandle' ; @current_message['ReceiptHandle'] = @text
           when 'MD5OfBody' ; @current_message['MD5OfBody'] = @text
           when 'Body'; @current_message['Body'] = @text; @result << @current_message
+          when 'Name'      ; @current_attribute          = @text
+          when 'Value'     ; @current_message[@current_attribute] = @text
         end
       end
     end
