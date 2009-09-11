@@ -13,7 +13,7 @@ The RightScale AWS gems comprise:
   associated EBS (Elastic Block Store)
 - RightAws::S3 and RightAws::S3Interface -- interface to Amazon S3 (Simple Storage Service)
 - RightAws::Sqs and RightAws::SqsInterface -- interface to first-generation Amazon SQS (Simple Queue Service) (API version 2007-05-01)
-- RightAws::SqsGen2 and RightAws::SqsGen2Interface -- interface to second-generation Amazon SQS (Simple Queue Service) (API version 2008-01-01)
+- RightAws::SqsGen2 and RightAws::SqsGen2Interface -- interface to second-generation Amazon SQS (Simple Queue Service) (API version 2009-02-01)
 - RightAws::SdbInterface and RightAws::ActiveSdb -- interface to Amazon SDB (SimpleDB)
 - RightAws::AcfInterface -- interface to Amazon CloudFront, a content distribution service
 
@@ -37,7 +37,7 @@ The RightScale AWS gems comprise:
 - Support for single-threaded usage, multithreaded usage, as well as usage with multiple
   AWS accounts.
 - Support for both first- and second-generation SQS (API versions 2007-05-01
-  and 2008-01-01).  These versions of SQS are not compatible.
+  and 2009-02-01).  These versions of SQS are not compatible.
 - Support for signature versions 0, 1 and 2 on all services.
 - Interoperability with any cloud running Eucalyptus (http://eucalyptus.cs.ucsb.edu)
 - Test suite (requires AWS account to do "live" testing).
